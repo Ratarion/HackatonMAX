@@ -41,7 +41,10 @@ async def start_cancel_process(cb: Callback, cursor: fsm.FSMCursor):
 
     bookings = await get_user_bookings(user.id)
     if not bookings:
-        await cb.answer(notification=t["no_user_bookings"])
+        back_kb = get_back_to_sections_keyboard(lang)
+        no_bookings_text = t.get("no_user_bookings", "У вас пока нет активных записей.")
+        await cb.answer(text=no_bookings_text, keyboard=back_kb)
+        cursor.clear_state()
         return
 
     await cb.answer(text=t["cancel_prompt"], keyboard=get_cancel_booking_keyboard(bookings, lang))
