@@ -1,0 +1,53 @@
+# Секреты
+.env
+.env.*
+!.env.example
+passwords.txt
+tokens.txt
+*.token
+*.key
+*.pem
+*.cert
+*.secret
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+
+# PHP
+vendor/
+.osp/
+
+# Логи
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.jar
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.csv
+*.xls
+*.xlsx
+node_modules/

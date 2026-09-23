@@ -1,0 +1,64 @@
+# Секреты и токены
+.env
+.env.*
+!.env.example
+passwords.txt
+tokens.txt
+*.token
+*.key
+*.pem
+*.cert
+*.secret
+secrets.*
+credentials.json
+docker-compose.override.yml
+
+# Персональные данные
+*.csv
+*.xls
+*.xlsx
+
+# Архивы
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+
+# PHP / Composer
+vendor/
+.osp/
+
+# Логи
+logs/
+*.log
+*.jar
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VKBottle cache
+.vkbottle/
+
+# Wiki / документация проекта (не часть исходного кода)
+wiki/
