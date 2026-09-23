@@ -8,7 +8,7 @@
 | ------------------------------------ | --------------------------------------------------------------------------------------- |
 | **Бот в MAX**              | *[max.ru/t701_hakaton_max_bot](https://max.ru/t701_hakaton_max_bot)*                   |
 | **Git-репозиторий** | *([github.com/Ratarion/HackatonMAX.git](https://github.com/Ratarion/HackatonMAX.git))* |
-| **Commit hash**                | *(зафиксировать при сдаче)*                                      |
+| **Commit hash**                | `61223dc` *(fcc3fca...)* |
 
 **Краткий порядок прохождения основного сценария:**
 
