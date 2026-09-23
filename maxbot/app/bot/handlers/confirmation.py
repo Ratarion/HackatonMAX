@@ -8,6 +8,7 @@ from aiomax import Router, Callback, fsm
 from app.laundry_repo import get_booking_by_id, set_booking_status, cancel_booking, get_user_by_max_id
 from app.bot.utils.translate import get_lang_and_texts
 from app.bot.utils.broadcaster import broadcast_slot_freed
+from app.bot.loader import bot
 from app.bot.keyboards import get_confirmed_keyboard, get_declined_keyboard, get_section_keyboard
 
 confirm_router = Router()
@@ -124,9 +125,11 @@ async def process_decline(cb: Callback, cursor: fsm.FSMCursor):
             text=decline_msg,
             keyboard=get_declined_keyboard(lang)
         )
-        asyncio.create_task(
-            broadcast_slot_freed(cursor.storage.bot, booking_data, exclude_max_id=user_id)
-        )
+        bot_instance = getattr(cb, "bot", None) or bot
+        if bot_instance:
+            asyncio.create_task(
+                broadcast_slot_freed(bot_instance, booking_data, exclude_max_id=user_id)
+            )
     else:
         await cb.answer(notification=t.get("cancel_error", "Ошибка при отмене"))
 

@@ -10,6 +10,7 @@ from app.bot.keyboards import get_cancel_booking_keyboard, get_back_to_sections_
 from app.bot.states import CancelRecord
 from app.laundry_repo import get_user_by_max_id, get_user_bookings, cancel_booking, get_booking_by_id
 from app.bot.utils.broadcaster import broadcast_slot_freed
+from app.bot.loader import bot
 
 cancel_record_router = Router()
 
@@ -103,8 +104,10 @@ async def process_cancel_booking(cb: Callback, cursor: fsm.FSMCursor):
         await cb.answer(text=cancel_success_msg, keyboard=get_back_to_sections_keyboard(lang))
         cursor.clear_state()
 
-        asyncio.create_task(
-            broadcast_slot_freed(cursor.storage.bot, booking_data, exclude_max_id=user_id)
-        )
+        bot_instance = getattr(cb, "bot", None) or bot
+        if bot_instance:
+            asyncio.create_task(
+                broadcast_slot_freed(bot_instance, booking_data, exclude_max_id=user_id)
+            )
     else:
         await cb.answer(notification=t["cancel_error"])
