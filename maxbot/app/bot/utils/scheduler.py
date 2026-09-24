@@ -211,10 +211,6 @@ async def check_confirmations(bot):
                 continue
 
             user = getattr(db_b, "user", None)
-            if not user or not getattr(user, "max_id", None):
-                await mark_autocanceled_notified_max(db_b.id)
-                continue
-
             dorm_id = getattr(db_b, "dormitory_id", None) or (db_b.machine.dormitory_id if getattr(db_b, "machine", None) else None) or (getattr(user, "dormitory_id", 1) if user else 1) or 1
             booking_data = {
                 "dormitory_id": dorm_id,
@@ -227,12 +223,14 @@ async def check_confirmations(bot):
                 "machine_num": db_b.machine.number_machine if getattr(db_b, "machine", None) else "",
             }
 
-            disc_res = await get_autocancel_penalty_info(db_b.id)
-            await _send_autocancel_notice_max(bot, user, booking_data, disc_res)
+            if user and getattr(user, "max_id", None):
+                disc_res = await get_autocancel_penalty_info(db_b.id)
+                await _send_autocancel_notice_max(bot, user, booking_data, disc_res)
+
             await mark_autocanceled_notified_max(db_b.id)
 
             asyncio.create_task(
-                broadcast_slot_freed(bot, booking_data, exclude_max_id=user.max_id)
+                broadcast_slot_freed(bot, booking_data, exclude_max_id=getattr(user, "max_id", None) if user else None)
             )
 
     # --- ЭТАП 3: Напоминание об окончании стирки (за 15 минут до end_time) ---
