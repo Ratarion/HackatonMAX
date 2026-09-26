@@ -74,7 +74,6 @@ async def on_bot_start_event(payload: BotStartPayload, cursor: fsm.FSMCursor):
 
     data = cursor.get_data() or {}
     if "lang" not in data:
-        await payload.send("Нажмите «🚀 Начать» или выберите язык для продолжения:", keyboard=get_start_keyboard())
         await payload.send(ALL_TEXTS["RU"]["welcome_lang_choice"], keyboard=get_lang_keyboard())
     else:
         lang, t = await get_lang_and_texts(user_id, cursor=cursor)
@@ -104,7 +103,6 @@ async def cmd_start(ctx: CommandContext, cursor: fsm.FSMCursor):
 
     data = cursor.get_data() or {}
     if "lang" not in data:
-        await ctx.reply("Нажмите «🚀 Начать» или выберите язык для продолжения:", keyboard=get_start_keyboard())
         await ctx.reply(ALL_TEXTS["RU"]["welcome_lang_choice"], keyboard=get_lang_keyboard())
     else:
         lang, t = await get_lang_and_texts(user_id, cursor=cursor)
@@ -134,7 +132,6 @@ async def cmd_start_text(message: Message, cursor: fsm.FSMCursor):
 
     data = cursor.get_data() or {}
     if "lang" not in data:
-        await message.reply("Нажмите «🚀 Начать» или выберите язык для продолжения:", keyboard=get_start_keyboard())
         await message.reply(ALL_TEXTS["RU"]["welcome_lang_choice"], keyboard=get_lang_keyboard())
     else:
         lang, t = await get_lang_and_texts(user_id, cursor=cursor)
